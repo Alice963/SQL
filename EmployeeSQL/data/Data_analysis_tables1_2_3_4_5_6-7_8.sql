@@ -74,9 +74,9 @@ ALTER TABLE "salaries" ADD CONSTRAINT "fk_salaries_emp_no" FOREIGN KEY("emp_no")
 REFERENCES "employees" ("emp_no");
 
 
-SELECT * FROM DEPT_EMP 
+SELECT * FROM dept_emp
 
-SELECT * FROM DEPARTMENTS
+SELECT * FROM departments
 
 SELECT * FROM employees
 
@@ -87,17 +87,17 @@ SELECT * FROM salaries
 SELECT * FROM dept_manager
 
 -- Create Table 1
-SELECT e.emp_no,last_name,first_name,sex,salary
-FROM employees e, salaries s
-WHERE  e.emp_no = s.emp_no
+SELECT employees.emp_no,last_name,first_name,sex,salary
+FROM employees , salaries 
+WHERE  employees.emp_no = salaries.emp_no
 
 -- Create Table 2
 SELECT
-    e.first_name,
-    e.last_name,
-    e.hire_date
-FROM employees e
-WHERE e.hire_date BETWEEN '1986-01-01' AND '1986-12-31'
+    employees.first_name,
+    employees.last_name,
+    employees.hire_date
+FROM employees 
+WHERE employees.hire_date BETWEEN '1986-01-01' AND '1986-12-31'
 
 
 --Create Table 3
@@ -118,58 +118,58 @@ dept_manager.emp_no = employees.emp_no;
 --Create Table 4
 
 SELECT
-e.emp_no,
-e.last_name,
-e.first_name,
-d.dept_name
-from employees e
-    JOIN dept_emp de on de.emp_no = e.emp_no
-    JOIN departments d on d.dept_no = de.dept_no
+employees.emp_no,
+employees.last_name,
+employees.first_name,
+departments.dept_name
+from employees 
+    JOIN dept_emp  on dept_emp.emp_no = employees.emp_no
+    JOIN departments  on departments.dept_no = dept_emp.dept_no
 
 --Create Table 5
 Select
-    e.first_name,
-    e.last_name
+    employees.first_name,
+    employees.last_name
 from employees e
 WHERE
-e.first_name = 'Hercules' and e.last_name like 'B%'
+employees.first_name = 'Hercules' and e.last_name like 'B%'
 
 
 --Create Table 6
 
 SELECT
-    e.emp_no,
-    e.last_name,
-    e.first_name,
+    employees.emp_no,
+    employees.last_name,
+    employees.first_name,
     d.dept_name
 from employees e
-    JOIN dept_emp de on de.emp_no = e.emp_no
-    JOIN departments d on d.dept_no = de.dept_no
+    JOIN dept_emp  on dept_emp.emp_no = employees.emp_no
+    JOIN departments  on departments.dept_no = dept_emp.dept_no
 Where
-	d.dept_name = 'Sales'
+	departments.dept_name = 'Sales'
 	
 
 --Create Table 7
 
 SELECT
-    e.emp_no,
-    e.last_name,
-    e.first_name,
-    d.dept_name
+    employees.emp_no,
+    employees.last_name,
+    employees.first_name,
+    departments.dept_name
 from employees e
-    JOIN dept_emp de on de.emp_no = e.emp_no
-    JOIN departments d on d.dept_no = de.dept_no
+    JOIN dept_emp  on dept_emp.emp_no = employees.emp_no
+    JOIN departments  on departments.dept_no = dept_emp.dept_no
 Where
-	d.dept_name IN ('Sales', 'Development')
+	departments.dept_name IN ('Sales', 'Development')
 
 
 --Create Table 8
 
 SELECT
-    e.last_name, count(e.last_name) as Last_Name_Count
-from employees e
+    employees.last_name, count(employees.last_name) as Last_Name_Count
+from employees 
 GROUP BY 
-e.last_name
+employees.last_name
 ORDER BY 
 Last_Name_Count desc 
 
